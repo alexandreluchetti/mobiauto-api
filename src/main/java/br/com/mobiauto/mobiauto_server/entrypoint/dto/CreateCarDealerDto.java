@@ -21,7 +21,7 @@ public record CreateCarDealerDto(
 
         @Valid
         @JsonProperty("endereco")
-        AddressRequestDto address
+        AddressDto address
 
 ) {
 }

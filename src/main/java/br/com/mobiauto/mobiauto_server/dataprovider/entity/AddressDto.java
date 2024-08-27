@@ -1,4 +1,4 @@
-package br.com.mobiauto.mobiauto_server.dataprovider.repository.entity;
+package br.com.mobiauto.mobiauto_server.dataprovider.entity;
 
 public record AddressDto(
 

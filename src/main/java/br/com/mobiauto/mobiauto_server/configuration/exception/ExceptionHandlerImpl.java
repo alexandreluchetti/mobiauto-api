@@ -14,6 +14,18 @@ import java.util.Map;
 @RestControllerAdvice
 public class ExceptionHandlerImpl {
 
+    @ExceptionHandler(InvalidDataException.class)
+    public ResponseEntity<ExceptionDto> handleInvalidDataException(InvalidDataException ex) {
+        ExceptionDto exceptionEntity = new ExceptionDto(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionEntity);
+    }
+
+    @ExceptionHandler(DatabaseException.class)
+    public ResponseEntity<ExceptionDto> handleDatabaseException(DatabaseException ex) {
+        ExceptionDto exceptionEntity = new ExceptionDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionEntity);
+    }
+
     @ExceptionHandler(NoneResultException.class)
     public ResponseEntity<ExceptionDto> handleNoneResultException(NoneResultException ex) {
         ExceptionDto exceptionEntity = new ExceptionDto(HttpStatus.NOT_FOUND.value(), ex.getMessage());
