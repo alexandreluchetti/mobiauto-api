@@ -1,4 +1,4 @@
-package br.com.mobiauto.mobiauto_server.core.model;
+package br.com.mobiauto.mobiauto_server.core.entity;
 
 import br.com.mobiauto.mobiauto_server.core.enums.Status;
 import lombok.AllArgsConstructor;

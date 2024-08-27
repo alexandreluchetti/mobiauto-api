@@ -1,4 +1,4 @@
-package br.com.mobiauto.mobiauto_server.core.model;
+package br.com.mobiauto.mobiauto_server.core.entity;
 
 import lombok.AllArgsConstructor;
 
@@ -11,5 +11,5 @@ public class Address {
     private String neighborhood;
     private String city;
     private String state;
-    private String cep;
+    private String zipCode;
 }

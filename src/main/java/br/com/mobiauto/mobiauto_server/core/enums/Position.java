@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum Position {
 
+    ADMINISTRATOR("ADMINISTRADOR"),
     OWNER("PROPRIETARIO"),
     MANAGER("GERENTE"),
     ASSISTANT("ASSISTENTE");
