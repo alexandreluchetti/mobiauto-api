@@ -12,6 +12,9 @@ public record CarDealerResponseDto(
         @JsonProperty("razao_social")
         String companyName,
 
+        @JsonProperty("ativa")
+        Boolean active,
+
         @JsonProperty("endereco")
         AddressDto address
 

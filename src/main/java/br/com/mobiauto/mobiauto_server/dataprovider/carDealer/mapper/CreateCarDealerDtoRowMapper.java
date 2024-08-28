@@ -15,6 +15,7 @@ public class CreateCarDealerDtoRowMapper implements RowMapper<CarDealerResponseD
                 rs.getLong("revenda_id"),
                 rs.getString("cnpj"),
                 rs.getString("nome_social"),
+                rs.getBoolean("ativo"),
                 new AddressDto(
                     rs.getString("rua"),
                     rs.getString("numero"),

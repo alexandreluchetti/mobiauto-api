@@ -80,7 +80,7 @@ public class CarDealerRepositoryImpl extends AbsRepository implements CarDealerR
                 setNullableString(cs,6, address.neighborhood());
                 setNullableString(cs,7, address.city());
                 setNullableString(cs,8, address.state());
-                setNullableString(cs,9, address.zipCode());
+                setNullableString(cs,9, address.zipCode());//TODO testar
                 cs.execute();
                 return null;
             });
