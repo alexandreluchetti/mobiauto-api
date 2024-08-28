@@ -1,8 +1,10 @@
 package br.com.mobiauto.mobiauto_server.core.useCase.carDealer.impl;
 
+import br.com.mobiauto.mobiauto_server.core.entity.DefaultResponse;
 import br.com.mobiauto.mobiauto_server.core.useCase.carDealer.CarDealerRepository;
 import br.com.mobiauto.mobiauto_server.core.useCase.carDealer.CarDealerUseCase;
 import br.com.mobiauto.mobiauto_server.dataprovider.carDealer.entity.CarDealerResponseDto;
+import br.com.mobiauto.mobiauto_server.dataprovider.oportunity.entity.CarDealerEntity;
 import br.com.mobiauto.mobiauto_server.entrypoint.carDealer.dto.CreateCarDealerDto;
 import br.com.mobiauto.mobiauto_server.entrypoint.carDealer.dto.UpdateCarDealerDto;
 
@@ -37,8 +39,14 @@ public class CarDealerUseCaseImpl implements CarDealerUseCase {
     }
 
     @Override
-    public void deleteCarDealer(Long id) {
-        repository.deleteCarDealer(id);
+    public DefaultResponse deleteCarDealer(Long id) {
+        CarDealerResponseDto carDealer = repository.getCarDealerByIdOrCnpj(id, null);
+        if (carDealer.active()) {
+            repository.deleteCarDealer(id);
+            return DefaultResponse.success();
+        } else {
+            return new DefaultResponse(500, "A revenda ja foi deletada");
+        }
     }
 
 }

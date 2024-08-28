@@ -1,6 +1,6 @@
 package br.com.mobiauto.mobiauto_server.core.useCase.oportunity.impl;
 
-import br.com.mobiauto.mobiauto_server.configuration.exception.DatabaseException;
+import br.com.mobiauto.mobiauto_server.core.entity.DefaultResponse;
 import br.com.mobiauto.mobiauto_server.core.entity.oportunity.CreateOportunityRequest;
 import br.com.mobiauto.mobiauto_server.core.useCase.oportunity.OportunityRepository;
 import br.com.mobiauto.mobiauto_server.core.useCase.oportunity.OportunityUseCase;
@@ -36,5 +36,16 @@ public class OportunityUseCaseImpl implements OportunityUseCase {
     public OportunityEntity updateOportunity(Long id, UpdateOportunityDto updateOportunityDto) {
         repository.updateOportunity(id, updateOportunityDto);
         return repository.getOportunitiesById(id);
+    }
+
+    @Override
+    public DefaultResponse deleteOportunity(Long id) {
+        OportunityEntity oportunity = repository.getOportunitiesById(id);
+        if (oportunity.getActive()) {
+            repository.deleteOportunity(id);
+            return DefaultResponse.success();
+        } else {
+            return new DefaultResponse(500, "A oportunidade ja foi deletada!");
+        }
     }
 }

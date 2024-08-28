@@ -12,10 +12,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class OportunityEntity {
 
+    private Long id;
     private Status status;
     private String reasonConclusion;
     private LocalDate assignmentDate;
     private LocalDate conclusionDate;
+    private Boolean active;
     private ClientEntity client;
     private VehicleEntity vehicle;
     private UserEntity user;
@@ -23,10 +25,12 @@ public class OportunityEntity {
 
     public OportunityResponseDto toDto() {
         return new OportunityResponseDto(
+                this.id,
                 this.status.getValue(),
                 this.reasonConclusion,
                 Utils.format(this.assignmentDate),
                 Utils.format(this.conclusionDate),
+                this.active,
                 this.client,
                 this.vehicle,
                 this.user.toDto(),

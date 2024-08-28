@@ -1,5 +1,6 @@
 package br.com.mobiauto.mobiauto_server.entrypoint.oportunity.controller;
 
+import br.com.mobiauto.mobiauto_server.core.entity.DefaultResponse;
 import br.com.mobiauto.mobiauto_server.core.useCase.oportunity.OportunityUseCase;
 import br.com.mobiauto.mobiauto_server.dataprovider.oportunity.entity.OportunityEntity;
 import br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.createOportunity.CreateOportunityDto;
@@ -67,6 +68,20 @@ public class OportunityRestController {
             UpdateOportunityDto updateOportunityDto
     ) {
         return ResponseEntity.ok(useCase.updateOportunity(id, updateOportunityDto).toDto());
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Deleta a oportunidade de acordo com o id recebido")
+    public ResponseEntity<DefaultResponseDto> deleteOportunity(
+            @PathVariable
+            Long id
+    ) {
+        DefaultResponse defaultResponse = useCase.deleteOportunity(id);
+        if (defaultResponse.isSuccess()) {
+            return ResponseEntity.ok(defaultResponse.toDto());
+        } else {
+            return ResponseEntity.internalServerError().body(defaultResponse.toDto());
+        }
     }
 
 }

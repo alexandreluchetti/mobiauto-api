@@ -1,6 +1,7 @@
 package br.com.mobiauto.mobiauto_server.entrypoint.carDealer.controller;
 
 import br.com.mobiauto.mobiauto_server.configuration.exception.InvalidDataException;
+import br.com.mobiauto.mobiauto_server.core.entity.DefaultResponse;
 import br.com.mobiauto.mobiauto_server.core.shared.CNPJValidator;
 import br.com.mobiauto.mobiauto_server.core.useCase.carDealer.CarDealerUseCase;
 import br.com.mobiauto.mobiauto_server.dataprovider.carDealer.entity.CarDealerResponseDto;
@@ -88,8 +89,12 @@ public class CarDealerRestController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Deletra a revenda de acordo com o id recebido")
     public ResponseEntity<DefaultResponseDto> deleteCarDealer(@PathVariable Long id){
-        useCase.deleteCarDealer(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(DefaultResponseDto.success());
+        DefaultResponse defaultResponse = useCase.deleteCarDealer(id);
+        if (defaultResponse.isSuccess()) {
+            return ResponseEntity.ok(defaultResponse.toDto());
+        } else {
+            return ResponseEntity.internalServerError().body(defaultResponse.toDto());
+        }
     }
 
 }

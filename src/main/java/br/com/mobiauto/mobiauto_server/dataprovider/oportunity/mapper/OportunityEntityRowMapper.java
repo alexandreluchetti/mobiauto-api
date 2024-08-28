@@ -15,10 +15,12 @@ public class OportunityEntityRowMapper implements RowMapper<OportunityEntity> {
     @Override
     public OportunityEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new OportunityEntity(
+                rs.getLong("oportunidade_id"),
                 Status.from(rs.getString("status")),
                 rs.getString("motivo_conclusao"),
                 getLocalDate(rs, "data_atribuicao"),
                 getLocalDate(rs, "data_conclusao"),
+                rs.getBoolean("ativo"),
                 new ClientEntity(
                         rs.getString("cliente_nome"),
                         rs.getString("cliente_email"),

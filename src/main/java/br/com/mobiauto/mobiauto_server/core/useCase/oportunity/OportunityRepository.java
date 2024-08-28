@@ -15,4 +15,6 @@ public interface OportunityRepository {
     void createOportunity(CreateOportunityRequest oportunityRequest);
 
     void updateOportunity(Long id, UpdateOportunityDto oportunityDto);
+
+    void deleteOportunity(Long id);
 }

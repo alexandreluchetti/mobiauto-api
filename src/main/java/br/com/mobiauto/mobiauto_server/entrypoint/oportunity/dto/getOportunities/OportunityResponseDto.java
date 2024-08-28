@@ -6,10 +6,12 @@ import br.com.mobiauto.mobiauto_server.dataprovider.oportunity.entity.VehicleEnt
 
 public record OportunityResponseDto(
 
+        Long id,
         String status,
         String reasonConclusion,
         String assignmentDate,
         String conclusionDate,
+        Boolean active,
         ClientEntity client,
         VehicleEntity vehicle,
         UserResponseDto user,
