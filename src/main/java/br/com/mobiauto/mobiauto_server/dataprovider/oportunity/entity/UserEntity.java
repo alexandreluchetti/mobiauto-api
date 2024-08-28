@@ -1,6 +1,7 @@
 package br.com.mobiauto.mobiauto_server.dataprovider.oportunity.entity;
 
 import br.com.mobiauto.mobiauto_server.core.enums.Position;
+import br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.UserResponseDto;
 
 public record UserEntity(
 
@@ -9,4 +10,13 @@ public record UserEntity(
         Position position
 
 ) {
+
+    public UserResponseDto toDto() {
+        return new UserResponseDto(
+                this.name,
+                this.email,
+                this.position.getValue()
+        );
+    }
+
 }

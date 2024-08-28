@@ -10,4 +10,6 @@ public interface OportunityUseCase {
     void createOportunity(CreateOportunityRequest oportunityRequest);
 
     List<OportunityEntity> getAllOportunities();
+
+    OportunityEntity getOportunityById(Long id);
 }

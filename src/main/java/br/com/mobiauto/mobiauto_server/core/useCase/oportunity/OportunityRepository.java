@@ -9,5 +9,7 @@ public interface OportunityRepository {
 
     List<OportunityEntity> getAllOportunities();
 
+    OportunityEntity getOportunitiesById(Long id);
+
     void createOportunity(CreateOportunityRequest oportunityRequest);
 }

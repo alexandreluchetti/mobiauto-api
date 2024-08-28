@@ -24,4 +24,9 @@ public class OportunityUseCaseImpl implements OportunityUseCase {
     public List<OportunityEntity> getAllOportunities() {
         return repository.getAllOportunities();
     }
+
+    @Override
+    public OportunityEntity getOportunityById(Long id) {
+        return repository.getOportunitiesById(id);
+    }
 }

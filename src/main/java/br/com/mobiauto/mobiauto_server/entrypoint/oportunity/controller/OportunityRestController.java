@@ -3,6 +3,7 @@ package br.com.mobiauto.mobiauto_server.entrypoint.oportunity.controller;
 import br.com.mobiauto.mobiauto_server.core.useCase.oportunity.OportunityUseCase;
 import br.com.mobiauto.mobiauto_server.dataprovider.oportunity.entity.OportunityEntity;
 import br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.CreateOportunityDto;
+import br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.OportunityResponseDto;
 import br.com.mobiauto.mobiauto_server.entrypoint.shared.DefaultResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -37,8 +38,14 @@ public class OportunityRestController {
 
     @GetMapping
     @Operation(summary = "Retorna todas as oportunidades cadastradas")
-    public ResponseEntity<List<OportunityEntity>> getAllOprtunities() {
-        return ResponseEntity.ok(useCase.getAllOportunities());
+    public ResponseEntity<List<OportunityResponseDto>> getAllOprtunities() {
+        return ResponseEntity.ok(useCase.getAllOportunities().stream().map(OportunityEntity::toDto).toList());
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Retorna a oportunidade de acordo com o id recebido")
+    public ResponseEntity<OportunityResponseDto> getOportunityById(@PathVariable Long id) {
+        return ResponseEntity.ok(useCase.getOportunityById(id).toDto());
     }
 
 }

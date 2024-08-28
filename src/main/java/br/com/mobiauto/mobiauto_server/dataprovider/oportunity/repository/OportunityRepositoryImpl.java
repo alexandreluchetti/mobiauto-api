@@ -33,6 +33,15 @@ public class OportunityRepositoryImpl implements OportunityRepository {
     }
 
     @Override
+    public OportunityEntity getOportunitiesById(Long id) {
+        try {
+            return jdbcTemplate.queryForObject(CALL_GET_OPORTUNITY, new OportunityEntityRowMapper(), id);
+        } catch (Exception e) {
+            throw new DatabaseException("Nao foi possivel recuperar a oportunidade do banco de dados");
+        }
+    }
+
+    @Override
     public void createOportunity(CreateOportunityRequest oportunityRequest) {
         try {
             jdbcTemplate.execute(CALL_CREAT_OPORTUNITY, (CallableStatementCallback<Void>) cs -> {
