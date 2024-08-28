@@ -1,6 +1,6 @@
-package br.com.mobiauto.mobiauto_server.dataprovider.repository.entity;
+package br.com.mobiauto.mobiauto_server.dataprovider.carDealer.entity;
 
-import br.com.mobiauto.mobiauto_server.entrypoint.dto.AddressDto;
+import br.com.mobiauto.mobiauto_server.entrypoint.carDealer.dto.AddressDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record CarDealerResponseDto(

@@ -1,4 +1,4 @@
-package br.com.mobiauto.mobiauto_server.entrypoint.dto;
+package br.com.mobiauto.mobiauto_server.entrypoint.carDealer.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;

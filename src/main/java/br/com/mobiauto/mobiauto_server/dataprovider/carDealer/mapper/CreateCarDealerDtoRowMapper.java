@@ -1,7 +1,7 @@
-package br.com.mobiauto.mobiauto_server.dataprovider.repository.mapper;
+package br.com.mobiauto.mobiauto_server.dataprovider.carDealer.mapper;
 
-import br.com.mobiauto.mobiauto_server.dataprovider.repository.entity.CarDealerResponseDto;
-import br.com.mobiauto.mobiauto_server.entrypoint.dto.AddressDto;
+import br.com.mobiauto.mobiauto_server.dataprovider.carDealer.entity.CarDealerResponseDto;
+import br.com.mobiauto.mobiauto_server.entrypoint.carDealer.dto.AddressDto;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

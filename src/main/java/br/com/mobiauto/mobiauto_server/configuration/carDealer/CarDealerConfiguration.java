@@ -1,9 +1,9 @@
-package br.com.mobiauto.mobiauto_server.configuration.CarDealer;
+package br.com.mobiauto.mobiauto_server.configuration.carDealer;
 
 import br.com.mobiauto.mobiauto_server.core.useCase.carDealer.CarDealerRepository;
 import br.com.mobiauto.mobiauto_server.core.useCase.carDealer.CarDealerUseCase;
 import br.com.mobiauto.mobiauto_server.core.useCase.carDealer.impl.CarDealerUseCaseImpl;
-import br.com.mobiauto.mobiauto_server.dataprovider.repository.CarDealerRepositoryImpl;
+import br.com.mobiauto.mobiauto_server.dataprovider.carDealer.repository.CarDealerRepositoryImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;

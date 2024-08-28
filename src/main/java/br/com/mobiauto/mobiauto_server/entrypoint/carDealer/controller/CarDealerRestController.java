@@ -3,49 +3,52 @@ package br.com.mobiauto.mobiauto_server.entrypoint.carDealer.controller;
 import br.com.mobiauto.mobiauto_server.configuration.exception.InvalidDataException;
 import br.com.mobiauto.mobiauto_server.core.shared.CNPJValidator;
 import br.com.mobiauto.mobiauto_server.core.useCase.carDealer.CarDealerUseCase;
-import br.com.mobiauto.mobiauto_server.dataprovider.repository.entity.CarDealerResponseDto;
-import br.com.mobiauto.mobiauto_server.entrypoint.dto.CreateCarDealerDto;
+import br.com.mobiauto.mobiauto_server.dataprovider.carDealer.entity.CarDealerResponseDto;
+import br.com.mobiauto.mobiauto_server.entrypoint.carDealer.dto.CreateCarDealerDto;
+import br.com.mobiauto.mobiauto_server.entrypoint.shared.DefaultResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@Tag(name = "Mobiauto API")
+@Tag(name = "Revenda")
 @RequestMapping("/api/revenda")
-public class CreateCarDealerRestController {
+public class CarDealerRestController {
 
     private final CarDealerUseCase useCase;
 
-    public CreateCarDealerRestController(CarDealerUseCase useCase) {
+    public CarDealerRestController(CarDealerUseCase useCase) {
         this.useCase = useCase;
     }
 
     @PostMapping
     @Operation(summary = "Cria uma revenda")
-    public ResponseEntity<CarDealerResponseDto> createCarDealer(
+    public ResponseEntity<DefaultResponseDto> createCarDealer(
             @Valid
             @RequestBody
             CreateCarDealerDto carDealerDto
     ){
         checkCnpj(carDealerDto.cnpj());
-        return ResponseEntity.ok(useCase.createCarDealer(carDealerDto));
+        useCase.createCarDealer(carDealerDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(DefaultResponseDto.created());
     }
 
     @GetMapping
-    @Operation(summary = "Retorna uma revenda de acordo com o CNPJ informado")
-    public ResponseEntity<List<CarDealerResponseDto>> createCarDealer(){
+    @Operation(summary = "Retorna todas as revendas cadastradas")
+    public ResponseEntity<List<CarDealerResponseDto>> getAllCarDealers(){
         return ResponseEntity.ok(useCase.getAllCarDealers());
     }
 
     @GetMapping("/{cnpj}")
     @Operation(summary = "Retorna uma revenda de acordo com o CNPJ informado")
-    public ResponseEntity<CarDealerResponseDto> createCarDealer(
+    public ResponseEntity<CarDealerResponseDto> getCarDealer(
             @Size(min = 14, max = 14)
             @Parameter(description = "O CNPJ deve ter 14 caracteres (apenas numeros).")
             @PathVariable

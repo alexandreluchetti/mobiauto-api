@@ -1,11 +1,11 @@
-package br.com.mobiauto.mobiauto_server.dataprovider.repository;
+package br.com.mobiauto.mobiauto_server.dataprovider.carDealer.repository;
 
 import br.com.mobiauto.mobiauto_server.configuration.exception.DatabaseException;
 import br.com.mobiauto.mobiauto_server.core.useCase.carDealer.CarDealerRepository;
-import br.com.mobiauto.mobiauto_server.dataprovider.repository.entity.CarDealerResponseDto;
-import br.com.mobiauto.mobiauto_server.dataprovider.repository.mapper.CreateCarDealerDtoRowMapper;
-import br.com.mobiauto.mobiauto_server.entrypoint.dto.AddressDto;
-import br.com.mobiauto.mobiauto_server.entrypoint.dto.CreateCarDealerDto;
+import br.com.mobiauto.mobiauto_server.dataprovider.carDealer.entity.CarDealerResponseDto;
+import br.com.mobiauto.mobiauto_server.dataprovider.carDealer.mapper.CreateCarDealerDtoRowMapper;
+import br.com.mobiauto.mobiauto_server.entrypoint.carDealer.dto.AddressDto;
+import br.com.mobiauto.mobiauto_server.entrypoint.carDealer.dto.CreateCarDealerDto;
 import org.springframework.jdbc.core.CallableStatementCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -24,16 +24,24 @@ public class CarDealerRepositoryImpl implements CarDealerRepository {
 
     @Override
     public CarDealerResponseDto getCarDealerByCnpj(String cnpj) {
-        return jdbcTemplate.queryForObject(CALL_GET_CAR_DEALER, new CreateCarDealerDtoRowMapper(), cnpj);
+        try {
+            return jdbcTemplate.queryForObject(CALL_GET_CAR_DEALER, new CreateCarDealerDtoRowMapper(), cnpj);
+        } catch (Exception e) {
+            throw new DatabaseException("Nao foi possivel buscar a revenda no banco de dados");
+        }
     }
 
     @Override
     public List<CarDealerResponseDto> getAllCarDealers() {
-        return jdbcTemplate.query(CALL_GET_CAR_DEALER, new CreateCarDealerDtoRowMapper(), (Object) null);
+        try {
+            return jdbcTemplate.query(CALL_GET_CAR_DEALER, new CreateCarDealerDtoRowMapper(), (Object) null);
+        } catch (Exception e) {
+            throw new DatabaseException("Nao foi possivel buscar as revendas no banco de dados");
+        }
     }
 
     @Override
-    public CarDealerResponseDto createCarDealer(CreateCarDealerDto carDealerDto) {
+    public void createCarDealer(CreateCarDealerDto carDealerDto) {
         try {
             AddressDto address = carDealerDto.address();
             jdbcTemplate.execute(CALL_CREATE_CAR_DEALER, (CallableStatementCallback<Void>) cs -> {
@@ -52,7 +60,6 @@ public class CarDealerRepositoryImpl implements CarDealerRepository {
         } catch (Exception e) {
             throw new DatabaseException("Nao foi possivel inserir a revenda no banco de dados");
         }
-        return null;
     }
 
 }

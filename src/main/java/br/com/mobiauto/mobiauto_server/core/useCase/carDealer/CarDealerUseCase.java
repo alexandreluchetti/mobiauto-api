@@ -1,13 +1,13 @@
 package br.com.mobiauto.mobiauto_server.core.useCase.carDealer;
 
-import br.com.mobiauto.mobiauto_server.dataprovider.repository.entity.CarDealerResponseDto;
-import br.com.mobiauto.mobiauto_server.entrypoint.dto.CreateCarDealerDto;
+import br.com.mobiauto.mobiauto_server.dataprovider.carDealer.entity.CarDealerResponseDto;
+import br.com.mobiauto.mobiauto_server.entrypoint.carDealer.dto.CreateCarDealerDto;
 
 import java.util.List;
 
 public interface CarDealerUseCase {
 
-    CarDealerResponseDto createCarDealer(CreateCarDealerDto carDealerDto);
+    void createCarDealer(CreateCarDealerDto carDealerDto);
 
     CarDealerResponseDto getCarDealerByCnpj(String cnpj);
 
