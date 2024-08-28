@@ -1,4 +1,4 @@
-package br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto;
+package br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.getOportunities;
 
 public record UserResponseDto(
 

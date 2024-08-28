@@ -2,8 +2,9 @@ package br.com.mobiauto.mobiauto_server.entrypoint.oportunity.controller;
 
 import br.com.mobiauto.mobiauto_server.core.useCase.oportunity.OportunityUseCase;
 import br.com.mobiauto.mobiauto_server.dataprovider.oportunity.entity.OportunityEntity;
-import br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.CreateOportunityDto;
-import br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.OportunityResponseDto;
+import br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.createOportunity.CreateOportunityDto;
+import br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.getOportunities.OportunityResponseDto;
+import br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.updateOportunity.UpdateOportunityDto;
 import br.com.mobiauto.mobiauto_server.entrypoint.shared.DefaultResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -46,6 +47,26 @@ public class OportunityRestController {
     @Operation(summary = "Retorna a oportunidade de acordo com o id recebido")
     public ResponseEntity<OportunityResponseDto> getOportunityById(@PathVariable Long id) {
         return ResponseEntity.ok(useCase.getOportunityById(id).toDto());
+    }
+
+    @PutMapping("/{id}")
+    @Operation(
+            summary = "Atualiza os dados da oportunidade de acordo com o id recebido",
+            description = """
+                    Parametros obrigatorios: id e status.
+                    
+                    Os outros atributos, caso nao precisem ser atualizados, inserir **null**
+                    """
+    )
+    public ResponseEntity<OportunityResponseDto> updateOportunity(
+            @PathVariable
+            Long id,
+
+            @Valid
+            @RequestBody
+            UpdateOportunityDto updateOportunityDto
+    ) {
+        return ResponseEntity.ok(useCase.updateOportunity(id, updateOportunityDto).toDto());
     }
 
 }

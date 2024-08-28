@@ -1,4 +1,4 @@
-package br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto;
+package br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.createOportunity;
 
 import br.com.mobiauto.mobiauto_server.core.entity.oportunity.CreateOportunityRequest;
 import br.com.mobiauto.mobiauto_server.core.enums.Status;

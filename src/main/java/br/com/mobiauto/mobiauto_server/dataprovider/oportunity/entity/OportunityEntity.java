@@ -2,7 +2,7 @@ package br.com.mobiauto.mobiauto_server.dataprovider.oportunity.entity;
 
 import br.com.mobiauto.mobiauto_server.core.enums.Status;
 import br.com.mobiauto.mobiauto_server.core.shared.Utils;
-import br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.OportunityResponseDto;
+import br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.getOportunities.OportunityResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
