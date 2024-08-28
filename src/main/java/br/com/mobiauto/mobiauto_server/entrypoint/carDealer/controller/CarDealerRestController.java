@@ -5,6 +5,7 @@ import br.com.mobiauto.mobiauto_server.core.shared.CNPJValidator;
 import br.com.mobiauto.mobiauto_server.core.useCase.carDealer.CarDealerUseCase;
 import br.com.mobiauto.mobiauto_server.dataprovider.carDealer.entity.CarDealerResponseDto;
 import br.com.mobiauto.mobiauto_server.entrypoint.carDealer.dto.CreateCarDealerDto;
+import br.com.mobiauto.mobiauto_server.entrypoint.carDealer.dto.UpdateCarDealerDto;
 import br.com.mobiauto.mobiauto_server.entrypoint.shared.DefaultResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -63,4 +64,32 @@ public class CarDealerRestController {
             throw new InvalidDataException("CNPJ Invalido");
         }
     }
+
+    @PutMapping("/{id}")
+    @Operation(
+            summary = "Atualiza os dados da revenda de acordo com o id recebido",
+            description = """
+                    Parametro obrigatorio: id.
+                    
+                    Os outros atributos, caso nao precisem ser atualizados, inserir **null**
+                    """
+    )
+    public ResponseEntity<CarDealerResponseDto> updateCarDealer(
+            @PathVariable
+            Long id,
+
+            @Valid
+            @RequestBody
+            UpdateCarDealerDto dto
+    ) {
+        return ResponseEntity.ok(useCase.updateCarDealer(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Deletra a revenda de acordo com o id recebido")
+    public ResponseEntity<DefaultResponseDto> deleteCarDealer(@PathVariable Long id){
+        useCase.deleteCarDealer(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(DefaultResponseDto.success());
+    }
+
 }

@@ -3,21 +3,18 @@ package br.com.mobiauto.mobiauto_server.dataprovider.oportunity.repository;
 import br.com.mobiauto.mobiauto_server.configuration.exception.DatabaseException;
 import br.com.mobiauto.mobiauto_server.core.entity.oportunity.CreateOportunityRequest;
 import br.com.mobiauto.mobiauto_server.core.enums.Status;
-import br.com.mobiauto.mobiauto_server.core.shared.Utils;
 import br.com.mobiauto.mobiauto_server.core.useCase.oportunity.OportunityRepository;
 import br.com.mobiauto.mobiauto_server.dataprovider.oportunity.entity.OportunityEntity;
 import br.com.mobiauto.mobiauto_server.dataprovider.oportunity.mapper.OportunityEntityRowMapper;
+import br.com.mobiauto.mobiauto_server.dataprovider.shared.AbsRepository;
 import br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.updateOportunity.UpdateOportunityDto;
 import org.springframework.jdbc.core.CallableStatementCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.sql.CallableStatement;
 import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.List;
 
-public class OportunityRepositoryImpl implements OportunityRepository {
+public class OportunityRepositoryImpl extends AbsRepository implements OportunityRepository {
 
     private static final String CALL_GET_OPORTUNITY = "CALL get_oportunity_details(?)";
     private static final String CALL_CREAT_OPORTUNITY = "CALL create_oportunity(?, ?, ?, ?, ?, ?)";
@@ -82,30 +79,6 @@ public class OportunityRepositoryImpl implements OportunityRepository {
             });
         } catch (Exception e) {
             throw new DatabaseException("Nao foi possivel atualizar a oportunidade no banco de dados");
-        }
-    }
-
-    private void setNullableString(CallableStatement cs, int index, String string) throws SQLException {
-        if (string == null) {
-            cs.setNull(index, Types.VARCHAR);
-        } else {
-            cs.setString(index, string);
-        }
-    }
-
-    private void setNullableDate(CallableStatement cs, int index, String dateString) throws SQLException {
-        if (dateString == null) {
-            cs.setNull(index, Types.DATE);
-        } else {
-            cs.setDate(index, Date.valueOf(Utils.parse(dateString)));
-        }
-    }
-
-    private void setNullableLong(CallableStatement cs, int index, Long longValue) throws SQLException {
-        if (longValue == null) {
-            cs.setNull(index, Types.BIGINT);
-        } else {
-            cs.setLong(index, longValue);
         }
     }
 }

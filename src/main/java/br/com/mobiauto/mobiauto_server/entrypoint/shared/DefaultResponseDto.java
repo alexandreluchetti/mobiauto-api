@@ -11,4 +11,8 @@ public record DefaultResponseDto(
     public static DefaultResponseDto created() {
         return new DefaultResponseDto(201, "Sucesso");
     }
+
+    public static DefaultResponseDto success() {
+        return new DefaultResponseDto(200, "Sucesso");
+    }
 }

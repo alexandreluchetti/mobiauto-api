@@ -4,6 +4,7 @@ import br.com.mobiauto.mobiauto_server.core.useCase.carDealer.CarDealerRepositor
 import br.com.mobiauto.mobiauto_server.core.useCase.carDealer.CarDealerUseCase;
 import br.com.mobiauto.mobiauto_server.dataprovider.carDealer.entity.CarDealerResponseDto;
 import br.com.mobiauto.mobiauto_server.entrypoint.carDealer.dto.CreateCarDealerDto;
+import br.com.mobiauto.mobiauto_server.entrypoint.carDealer.dto.UpdateCarDealerDto;
 
 import java.util.List;
 
@@ -22,12 +23,22 @@ public class CarDealerUseCaseImpl implements CarDealerUseCase {
 
     @Override
     public CarDealerResponseDto getCarDealerByCnpj(String cnpj) {
-        return repository.getCarDealerByCnpj(cnpj);
+        return repository.getCarDealerByIdOrCnpj(null, cnpj);
     }
 
     @Override
     public List<CarDealerResponseDto> getAllCarDealers() {
         return repository.getAllCarDealers();
+    }
+
+    @Override
+    public CarDealerResponseDto updateCarDealer(Long id, UpdateCarDealerDto dto) {
+        return repository.updateCarDealer(id, dto);
+    }
+
+    @Override
+    public void deleteCarDealer(Long id) {
+        repository.deleteCarDealer(id);
     }
 
 }
