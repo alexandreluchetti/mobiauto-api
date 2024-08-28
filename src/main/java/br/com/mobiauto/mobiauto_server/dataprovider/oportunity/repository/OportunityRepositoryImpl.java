@@ -20,6 +20,7 @@ public class OportunityRepositoryImpl extends AbsRepository implements Oportunit
     private static final String CALL_CREAT_OPORTUNITY = "CALL create_oportunity(?, ?, ?, ?, ?, ?)";
     private static final String CALL_UPDATE_OPORTUNITY = "CALL update_oportunity(?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String QUERY_UPDATE_OPORTUNITY = "UPDATE oportunidade SET ativo = FALSE WHERE id = ?;";
+    private static final String CALL_GET_OPORTUNITIES_BY_CAR_DEALER = "CALL get_oportunities_by_car_dealer(?);";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -89,6 +90,15 @@ public class OportunityRepositoryImpl extends AbsRepository implements Oportunit
             jdbcTemplate.update(QUERY_UPDATE_OPORTUNITY, id);
         } catch (Exception e) {
             throw new DatabaseException("Nao foi possivel deletar a oportunidade do banco de dados");
+        }
+    }
+
+    @Override
+    public List<OportunityEntity> getOportunitiesByCarDealer(Long carDealerId){
+        try {
+            return jdbcTemplate.query(CALL_GET_OPORTUNITIES_BY_CAR_DEALER, new OportunityEntityRowMapper(), carDealerId);
+        } catch (Exception e) {
+            throw new DatabaseException("Nao foi possivel recuperar as oportunidades do banco de dados");
         }
     }
 }

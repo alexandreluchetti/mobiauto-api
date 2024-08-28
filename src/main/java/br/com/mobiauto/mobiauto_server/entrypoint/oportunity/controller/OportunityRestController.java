@@ -84,4 +84,10 @@ public class OportunityRestController {
         }
     }
 
+    @GetMapping("/revenda/{id}")
+    @Operation(summary = "Retorna todas as oportunidades que a revenda possui")
+    public ResponseEntity<List<OportunityResponseDto>> getOportunitiesByCarDealer(@PathVariable Long id){
+        return ResponseEntity.ok(useCase.getOportunitiesByCarDealer(id).stream().map(OportunityEntity::toDto).toList());
+    }
+
 }

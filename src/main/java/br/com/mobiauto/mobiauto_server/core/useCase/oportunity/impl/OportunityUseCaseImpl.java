@@ -1,5 +1,6 @@
 package br.com.mobiauto.mobiauto_server.core.useCase.oportunity.impl;
 
+import br.com.mobiauto.mobiauto_server.configuration.exception.OperationException;
 import br.com.mobiauto.mobiauto_server.core.entity.DefaultResponse;
 import br.com.mobiauto.mobiauto_server.core.entity.oportunity.CreateOportunityRequest;
 import br.com.mobiauto.mobiauto_server.core.useCase.oportunity.OportunityRepository;
@@ -47,5 +48,12 @@ public class OportunityUseCaseImpl implements OportunityUseCase {
         } else {
             return new DefaultResponse(500, "A oportunidade ja foi deletada!");
         }
+    }
+
+    @Override
+    public List<OportunityEntity> getOportunitiesByCarDealer(Long carDealerId) {
+        List<OportunityEntity> oportunities = repository.getOportunitiesByCarDealer(carDealerId);
+        if (oportunities.isEmpty()) throw new OperationException("Essa revenda nao possui nenhuma oportunidade");
+        return oportunities;
     }
 }

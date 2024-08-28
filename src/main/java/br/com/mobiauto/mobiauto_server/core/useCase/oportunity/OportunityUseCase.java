@@ -18,4 +18,6 @@ public interface OportunityUseCase {
     OportunityEntity updateOportunity(Long id, UpdateOportunityDto updateOportunityDto);
 
     DefaultResponse deleteOportunity(Long id);
+
+    List<OportunityEntity> getOportunitiesByCarDealer(Long carDealerId);
 }

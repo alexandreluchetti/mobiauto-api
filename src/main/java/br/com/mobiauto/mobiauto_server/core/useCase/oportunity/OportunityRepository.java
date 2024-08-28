@@ -17,4 +17,6 @@ public interface OportunityRepository {
     void updateOportunity(Long id, UpdateOportunityDto oportunityDto);
 
     void deleteOportunity(Long id);
+
+    List<OportunityEntity> getOportunitiesByCarDealer(Long carDealerId);
 }
