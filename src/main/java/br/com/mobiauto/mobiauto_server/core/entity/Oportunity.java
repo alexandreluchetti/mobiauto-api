@@ -1,5 +1,6 @@
 package br.com.mobiauto.mobiauto_server.core.entity;
 
+import br.com.mobiauto.mobiauto_server.core.entity.user.CreateUser;
 import br.com.mobiauto.mobiauto_server.core.enums.Status;
 import lombok.AllArgsConstructor;
 
@@ -14,6 +15,6 @@ public class Oportunity {
     private LocalDate conclusionDate;
     private Client client;
     private Vehicle vehicle;
-    private User user;
+    private CreateUser createUser;
     private CarDealer carDealer;
 }

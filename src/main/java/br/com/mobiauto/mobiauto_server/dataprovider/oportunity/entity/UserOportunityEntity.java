@@ -1,13 +1,13 @@
 package br.com.mobiauto.mobiauto_server.dataprovider.oportunity.entity;
 
-import br.com.mobiauto.mobiauto_server.core.enums.Position;
+import br.com.mobiauto.mobiauto_server.core.enums.RoleEnum;
 import br.com.mobiauto.mobiauto_server.entrypoint.oportunity.dto.getOportunities.UserResponseDto;
 
-public record UserEntity(
+public record UserOportunityEntity(
 
         String name,
         String email,
-        Position position
+        RoleEnum roleEnum
 
 ) {
 
@@ -15,7 +15,7 @@ public record UserEntity(
         return new UserResponseDto(
                 this.name,
                 this.email,
-                this.position.getValue()
+                this.roleEnum.getValue()
         );
     }
 

@@ -1,6 +1,6 @@
 package br.com.mobiauto.mobiauto_server.dataprovider.oportunity.mapper;
 
-import br.com.mobiauto.mobiauto_server.core.enums.Position;
+import br.com.mobiauto.mobiauto_server.core.enums.RoleEnum;
 import br.com.mobiauto.mobiauto_server.core.enums.Status;
 import br.com.mobiauto.mobiauto_server.dataprovider.oportunity.entity.*;
 import org.springframework.jdbc.core.RowMapper;
@@ -32,10 +32,10 @@ public class OportunityEntityRowMapper implements RowMapper<OportunityEntity> {
                         rs.getString("veiculo_versao"),
                         rs.getInt("veiculo_ano_modelo")
                 ),
-                new UserEntity(
+                new UserOportunityEntity(
                         rs.getString("usuario_nome"),
                         rs.getString("usuario_email"),
-                        Position.from(rs.getString("usuario_cargo"))
+                        RoleEnum.from(rs.getString("usuario_cargo"))
                 ),
                 new CarDealerEntity(
                         rs.getString("revenda_cnpj"),

@@ -11,6 +11,10 @@ public class DefaultResponse {
     private Integer code;
     private String message;
 
+    public static DefaultResponse created() {
+        return new DefaultResponse(201, "Created");
+    }
+
     public DefaultResponseDto toDto() {
         return new DefaultResponseDto(code, message);
     }

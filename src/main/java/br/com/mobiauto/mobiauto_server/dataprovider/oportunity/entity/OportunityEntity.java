@@ -20,7 +20,7 @@ public class OportunityEntity {
     private Boolean active;
     private ClientEntity client;
     private VehicleEntity vehicle;
-    private UserEntity user;
+    private UserOportunityEntity user;
     private CarDealerEntity carDealer;
 
     public OportunityResponseDto toDto() {
