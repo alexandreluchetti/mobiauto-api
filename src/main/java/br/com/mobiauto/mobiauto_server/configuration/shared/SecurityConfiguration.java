@@ -1,7 +1,6 @@
 package br.com.mobiauto.mobiauto_server.configuration.shared;
 
-import br.com.mobiauto.mobiauto_server.core.enums.RoleEnum;
-import br.com.mobiauto.mobiauto_server.core.useCase.user.impl.UserDetailsServiceImpl;
+import br.com.mobiauto.mobiauto_server.core.useCase.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,36 +19,28 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+    private final UserDetailsServiceImpl userDetailsService;
+
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    public SecurityConfiguration(UserDetailsServiceImpl userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests((requests) -> requests
-//                        .requestMatchers("/admin/**")
-//                        .hasRole(RoleEnum.ADMINISTRADOR.getValue())
-//                        .requestMatchers("/revenda/**")
-//                        .hasAnyRole(
-//                                RoleEnum.ADMINISTRADOR.getValue(),
-//                                RoleEnum.PROPRIETARIO.getValue(),
-//                                RoleEnum.GERENTE.getValue()
-//                        )
-//                        .anyRequest().authenticated()
-//                )
-//                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
-//                .logout(LogoutConfigurer::permitAll);
-
         http
-                .csrf(AbstractHttpConfigurer::disable)  // Desabilite CSRF para depuração, se necessário
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/admin/**").hasRole("ADMINISTRADOR")
-                        .anyRequest().authenticated()
-                )
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeRequests()
+                .requestMatchers("/usuarios/**").hasAnyRole("ADMINISTRADOR", "PROPRIETARIO", "GERENTE")
+                .requestMatchers("/revendas/**").hasRole("ADMINISTRADOR")
+                .requestMatchers("/assistentes/**").hasRole("ASSISTENTE")
+                .requestMatchers("/clientes/**").authenticated()
+                .requestMatchers("/veiculos/**").authenticated()
+                .requestMatchers("/oportunidades/**").authenticated()
+                .anyRequest().permitAll()
+                .and()
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .logout(LogoutConfigurer::permitAll);
-
         return http.build();
     }
 

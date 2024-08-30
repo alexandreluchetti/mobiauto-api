@@ -1,5 +1,6 @@
 package br.com.mobiauto.mobiauto_server.configuration.exception;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -13,6 +14,18 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class ExceptionHandlerImpl {
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ExceptionDto> handleEntityNotFoundException(EntityNotFoundException ex) {
+        ExceptionDto exceptionEntity = new ExceptionDto(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionEntity);
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ExceptionDto> handleUnauthorizedException(UnauthorizedException ex) {
+        ExceptionDto exceptionEntity = new ExceptionDto(HttpStatus.FORBIDDEN.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exceptionEntity);
+    }
 
     @ExceptionHandler(InvalidDataException.class)
     public ResponseEntity<ExceptionDto> handleInvalidDataException(InvalidDataException ex) {
