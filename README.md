@@ -40,7 +40,7 @@ O Mobiauto Server foi desenvolvido seguindo a arquitetura limpa (Clean Archtectu
 - **Documentação**: A API é documentada e testável através do Swagger, integrado com SpringDoc OpenAPI.
 - **Testes**: O projeto inclui uma configuração robusta de testes usando JUnit, Mockito, e Spring Boot Test, garantindo que a aplicação funcione conforme esperado.
 
-## Configuração e Variáveis de Ambiente
+## Executando
 
 ### Execução com Docker
 
@@ -66,7 +66,6 @@ Se você preferir rodar o projeto sem Docker, você precisará garantir que toda
 - **Build do Projeto:** `mvn clean install`
 - **Executar a Aplicação:**: `java -jar target/mobiauto-server-1.0.0.jar`
 
-
 ## Testes
 
 ### Visão Geral
@@ -87,6 +86,7 @@ mvn test
 ### Resultados dos Testes
 Após a execução dos testes, você pode ver os relatórios de testes gerados na pasta `target/surefire-reports`.
 
+## Configuração e Variáveis de Ambiente
 
 ### Dependências
 
@@ -107,14 +107,14 @@ Certifique-se de que todas as dependências estejam instaladas corretamente ante
 
 Essas variáveis podem ser configuradas no seu ambiente de desenvolvimento ou no arquivo application.properties.
 
-### Suporte e Contato
+## Suporte e Contato
 
 Canais de Comunicação
 - **Alexandre Lucchetta**
 - **E-mail**: luchetti.92@gmail.com
 - **Celular**: +55 (16) 99169-9718
 
-### Imagens
+## Imagens
 
 ![Swagger UI](assets/swagger-ui.png)
 ![Requisicoes veiculos](assets/veiculos.png)
