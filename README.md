@@ -42,6 +42,8 @@ O Mobiauto Server foi desenvolvido seguindo a arquitetura limpa (Clean Archtectu
 
 ## Executando
 
+Obs: o arquivo db/mobiauto.db contém toda a estrutura e schema do banco de dados da aplicação.
+
 ### Execução com Docker
 
 Imagem do projeto: `alexandreluchetti/mobiauto-server:latest`
