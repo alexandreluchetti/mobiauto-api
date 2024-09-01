@@ -1,7 +1,5 @@
-package br.com.mobiauto.mobiauto_server.configuration.shared;
+package br.com.mobiauto.mobiauto_server.configuration.security;
 
-import br.com.mobiauto.mobiauto_server.configuration.security.JwtAuthenticationFilter;
-import br.com.mobiauto.mobiauto_server.core.entity.Cargo;
 import br.com.mobiauto.mobiauto_server.core.useCase.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,9 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

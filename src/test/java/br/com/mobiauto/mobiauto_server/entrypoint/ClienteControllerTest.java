@@ -23,13 +23,16 @@ import static org.hamcrest.Matchers.is;
 @AutoConfigureMockMvc
 public class ClienteControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ClienteRepository clienteRepository;
+    private final MockMvc mockMvc;
+    private final ClienteRepository clienteRepository;
 
     private Cliente cliente;
+
+    @Autowired
+    public ClienteControllerTest(MockMvc mockMvc, ClienteRepository clienteRepository) {
+        this.mockMvc = mockMvc;
+        this.clienteRepository = clienteRepository;
+    }
 
     @BeforeEach
     public void setup() {

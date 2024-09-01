@@ -17,8 +17,12 @@ import java.util.Optional;
 @RequestMapping("/revendas")
 public class RevendaController {
 
+    private final RevendaService revendaService;
+
     @Autowired
-    private RevendaService revendaService;
+    public RevendaController(RevendaService revendaService) {
+        this.revendaService = revendaService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Revenda>> getAllRevendas() {

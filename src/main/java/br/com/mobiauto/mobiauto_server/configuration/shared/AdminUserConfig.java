@@ -12,11 +12,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class AdminUserConfig {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public AdminUserConfig(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+        this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Bean
     public CommandLineRunner createDefaultAdmin() {

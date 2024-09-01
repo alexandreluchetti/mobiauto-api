@@ -16,8 +16,12 @@ import java.util.Optional;
 @RequestMapping("/veiculos")
 public class VeiculoController {
 
+    private final VeiculoService veiculoService;
+
     @Autowired
-    private VeiculoService veiculoService;
+    public VeiculoController(VeiculoService veiculoService) {
+        this.veiculoService = veiculoService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Veiculo>> getAllVeiculos() {

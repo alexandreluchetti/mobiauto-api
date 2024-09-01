@@ -10,8 +10,12 @@ import java.util.Optional;
 @Service
 public class ClienteService {
 
+    private final ClienteRepository clienteRepository;
+
     @Autowired
-    private ClienteRepository clienteRepository;
+    public ClienteService(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
 
     public List<Cliente> findAll() {
         return clienteRepository.findAll();

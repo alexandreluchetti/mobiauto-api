@@ -10,8 +10,12 @@ import java.util.Optional;
 @Service
 public class VeiculoService {
 
+    private final VeiculoRepository veiculoRepository;
+
     @Autowired
-    private VeiculoRepository veiculoRepository;
+    public VeiculoService(VeiculoRepository veiculoRepository) {
+        this.veiculoRepository = veiculoRepository;
+    }
 
     public List<Veiculo> findAll() {
         return veiculoRepository.findAll();
