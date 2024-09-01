@@ -44,6 +44,8 @@ O Mobiauto Server foi desenvolvido seguindo a arquitetura limpa (Clean Archtectu
 
 ### Execução com Docker
 
+Imagem do projeto: `alexandreluchetti/mobiauto-server:latest`
+
 Para facilitar a configuração e execução do Mobiauto Server, você pode usar Docker e Docker Compose. Aqui estão os passos para executar o projeto usando Docker:
 
 Primeiro, clone o repositório:
