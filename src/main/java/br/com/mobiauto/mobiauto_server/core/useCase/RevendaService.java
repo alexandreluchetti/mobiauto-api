@@ -4,8 +4,8 @@ import br.com.mobiauto.mobiauto_server.configuration.exception.NoneResultExcepti
 import br.com.mobiauto.mobiauto_server.configuration.exception.UnauthorizedException;
 import br.com.mobiauto.mobiauto_server.core.entity.Revenda;
 import br.com.mobiauto.mobiauto_server.core.entity.Usuario;
-import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.RevendaRepository;
-import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.UsuarioRepository;
+import br.com.mobiauto.mobiauto_server.dataprovider.RevendaRepository;
+import br.com.mobiauto.mobiauto_server.dataprovider.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

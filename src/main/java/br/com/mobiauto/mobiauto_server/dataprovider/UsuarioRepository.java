@@ -1,4 +1,4 @@
-package br.com.mobiauto.mobiauto_server.dataprovider.repositorios;
+package br.com.mobiauto.mobiauto_server.dataprovider;
 
 import br.com.mobiauto.mobiauto_server.core.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;

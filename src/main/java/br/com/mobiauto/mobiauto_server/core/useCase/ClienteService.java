@@ -1,7 +1,7 @@
 package br.com.mobiauto.mobiauto_server.core.useCase;
 
 import br.com.mobiauto.mobiauto_server.core.entity.Cliente;
-import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.ClienteRepository;
+import br.com.mobiauto.mobiauto_server.dataprovider.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

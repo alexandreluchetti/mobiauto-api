@@ -1,9 +1,7 @@
 package br.com.mobiauto.mobiauto_server.entrypoint;
 
 import br.com.mobiauto.mobiauto_server.core.entity.*;
-import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.OportunidadeRepository;
-import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.RevendaRepository;
-import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.UsuarioRepository;
+import br.com.mobiauto.mobiauto_server.dataprovider.OportunidadeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,6 @@
 package br.com.mobiauto.mobiauto_server.entrypoint;
 
-import br.com.mobiauto.mobiauto_server.core.entity.Revenda;
-import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.RevendaRepository;
-import org.junit.jupiter.api.BeforeEach;
+import br.com.mobiauto.mobiauto_server.dataprovider.RevendaRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

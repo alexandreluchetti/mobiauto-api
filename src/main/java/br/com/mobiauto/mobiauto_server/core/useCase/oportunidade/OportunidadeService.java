@@ -1,11 +1,10 @@
 package br.com.mobiauto.mobiauto_server.core.useCase.oportunidade;
 
-import br.com.mobiauto.mobiauto_server.configuration.exception.UnauthorizedException;
 import br.com.mobiauto.mobiauto_server.core.entity.Cargo;
 import br.com.mobiauto.mobiauto_server.core.entity.Oportunidade;
 import br.com.mobiauto.mobiauto_server.core.entity.Usuario;
-import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.OportunidadeRepository;
-import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.UsuarioRepository;
+import br.com.mobiauto.mobiauto_server.dataprovider.OportunidadeRepository;
+import br.com.mobiauto.mobiauto_server.dataprovider.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,14 +15,16 @@ import java.util.Optional;
 @Service
 public class OportunidadeService {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final OportunidadeRepository oportunidadeRepository;
+    private final DistribuicaoOportunidadesService distribuicaoOportunidadesService;
 
     @Autowired
-    private OportunidadeRepository oportunidadeRepository;
-
-    @Autowired
-    private DistribuicaoOportunidadesService distribuicaoOportunidadesService;
+    public OportunidadeService(UsuarioRepository usuarioRepository, OportunidadeRepository oportunidadeRepository, DistribuicaoOportunidadesService distribuicaoOportunidadesService) {
+        this.usuarioRepository = usuarioRepository;
+        this.oportunidadeRepository = oportunidadeRepository;
+        this.distribuicaoOportunidadesService = distribuicaoOportunidadesService;
+    }
 
     public List<Oportunidade> findAll() {
         return oportunidadeRepository.findAll();
@@ -33,39 +34,13 @@ public class OportunidadeService {
         return oportunidadeRepository.findById(id);
     }
 
-//    public Oportunidade save(Oportunidade oportunidade) {
-//        Optional<Usuario> usuarioOpt = getUsuarioAutenticado();
-//
-//        if (usuarioOpt.isPresent()) {
-//            Usuario usuario = usuarioOpt.get();
-//            oportunidade = distribuicaoOportunidadesService.distribuirOportunidade(oportunidade);
-//
-//            if (usuario.getCargo().isAdministrador()) {
-//                return oportunidadeRepository.save(oportunidade);
-//            } else if (usuario.getCargo().isAssistente() && oportunidade.getUsuario().getId().equals(usuario.getId())) {
-//                return oportunidadeRepository.save(oportunidade);
-//            } else if (usuario.getCargo().isProprietarioOuGerente() && oportunidade.getRevenda().getId().equals(usuario.getRevenda().getId())) {
-//                return oportunidadeRepository.save(oportunidade);
-//            }
-//        }
-//
-//        throw new UnauthorizedException("Usuário não autorizado a realizar esta operação.");
-//    }
-
     public void deleteById(Long id) {
         oportunidadeRepository.deleteById(id);
     }
 
-
-
-
-
-
-
-
     public Oportunidade save(Oportunidade oportunidade) {
         if (oportunidade.getUsuario() == null) {
-            distribuicaoOportunidadesService.distribuirOportunidade(oportunidade);
+            oportunidade = distribuicaoOportunidadesService.distribuirOportunidade(oportunidade);
         }
         return oportunidadeRepository.save(oportunidade);
     }

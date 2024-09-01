@@ -2,31 +2,31 @@ package br.com.mobiauto.mobiauto_server.core.useCase.oportunidade;
 
 import br.com.mobiauto.mobiauto_server.core.entity.Oportunidade;
 import br.com.mobiauto.mobiauto_server.core.entity.Usuario;
-import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.OportunidadeRepository;
-import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.UsuarioRepository;
+import br.com.mobiauto.mobiauto_server.dataprovider.OportunidadeRepository;
+import br.com.mobiauto.mobiauto_server.dataprovider.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class DistribuicaoOportunidadesService {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final OportunidadeRepository oportunidadeRepository;
 
     @Autowired
-    private OportunidadeRepository oportunidadeRepository;
+    public DistribuicaoOportunidadesService(UsuarioRepository usuarioRepository, OportunidadeRepository oportunidadeRepository) {
+        this.usuarioRepository = usuarioRepository;
+        this.oportunidadeRepository = oportunidadeRepository;
+    }
 
     public Optional<Usuario> findNextAssistente(Long revendaId) {
-        // Busca todos os assistentes da revenda
         List<Usuario> assistentes = usuarioRepository.findByRevendaIdAndCargo(revendaId, "ASSISTENTE");
 
-        // Ordena os assistentes por menor quantidade de oportunidades em andamento e maior tempo sem receber uma oportunidade
         return assistentes.stream()
                 .sorted((a1, a2) -> {
                     int compare = Integer.compare(
@@ -34,7 +34,6 @@ public class DistribuicaoOportunidadesService {
                             getOportunidadesEmAndamento(a2.getId()).size()
                     );
                     if (compare == 0) {
-                        // Se ambos têm o mesmo número de oportunidades, ordenar pelo maior tempo sem receber uma oportunidade
                         return getUltimaAtribuicao(a1.getId()).compareTo(getUltimaAtribuicao(a2.getId()));
                     }
                     return compare;

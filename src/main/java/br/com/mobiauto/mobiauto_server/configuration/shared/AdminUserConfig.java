@@ -2,7 +2,7 @@ package br.com.mobiauto.mobiauto_server.configuration.shared;
 
 import br.com.mobiauto.mobiauto_server.core.entity.Cargo;
 import br.com.mobiauto.mobiauto_server.core.entity.Usuario;
-import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.UsuarioRepository;
+import br.com.mobiauto.mobiauto_server.dataprovider.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
