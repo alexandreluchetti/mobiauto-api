@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.mobiauto</groupId>
 	<artifactId>mobiauto-server</artifactId>
-	<version>0.1.0</version>
+	<version>1.0.0</version>
 	<name>mobiauto-server</name>
 	<description>Servidor de sistemas da Mobiauto</description>
 	<url/>
