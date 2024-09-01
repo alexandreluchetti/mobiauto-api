@@ -44,17 +44,18 @@ public class UsuarioService {
             Usuario usuarioAutenticado = usuarioAutenticadoOpt.get();
 
             if (usuarioAutenticado.getCargo().isAdministrador()) {
-                usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-                return usuarioRepository.save(usuario);
-            }
-
-            if (usuarioAutenticado.getCargo().isProprietarioOuGerente() && usuarioAutenticado.getRevenda().getId().equals(usuario.getRevenda().getId())) {
-                usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-                return usuarioRepository.save(usuario);
+                return saveUsuario(usuario);
+            } else if (usuarioAutenticado.getCargo().isProprietarioOuGerente() && usuarioAutenticado.getRevenda().getId().equals(usuario.getRevenda().getId())) {
+                return saveUsuario(usuario);
             }
         }
 
         throw new UnauthorizedException("Usuário não autorizado a realizar esta operação.");
+    }
+
+    private Usuario saveUsuario(Usuario usuario) {
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        return usuarioRepository.save(usuario);
     }
 
     public void deleteById(Long id) {

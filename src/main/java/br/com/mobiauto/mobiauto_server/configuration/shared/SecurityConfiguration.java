@@ -4,6 +4,7 @@ import br.com.mobiauto.mobiauto_server.core.useCase.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,6 +32,7 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests()
+                .requestMatchers(HttpMethod.POST, "/usuarios/**").hasAnyRole("ADMINISTRADOR", "PROPRIETARIO", "GERENTE")
                 .requestMatchers("/usuarios/**").hasAnyRole("ADMINISTRADOR", "PROPRIETARIO", "GERENTE")
                 .requestMatchers("/revendas/**").hasRole("ADMINISTRADOR")
                 .requestMatchers("/assistentes/**").hasRole("ASSISTENTE")

@@ -1,5 +1,6 @@
 package br.com.mobiauto.mobiauto_server.core.useCase;
 
+import br.com.mobiauto.mobiauto_server.configuration.exception.NoneResultException;
 import br.com.mobiauto.mobiauto_server.configuration.exception.UnauthorizedException;
 import br.com.mobiauto.mobiauto_server.core.entity.Revenda;
 import br.com.mobiauto.mobiauto_server.core.entity.Usuario;
@@ -36,14 +37,20 @@ public class RevendaService {
         if (usuarioAutenticadoOpt.isPresent()) {
             Usuario usuarioAutenticado = usuarioAutenticadoOpt.get();
 
-            if (usuarioAutenticado.getRevenda().getId().equals(id)) {
-                Revenda revenda = revendaRepository.findById(id)
-                        .orElseThrow(() -> new EntityNotFoundException("Loja não encontrada"));
-                return Optional.of(revenda);
+            if (usuarioAutenticado.getCargo().isAdministrador()) {
+                return getRevenda(id);
+            } else if (usuarioAutenticado.getRevenda().getId().equals(id)) {
+                return getRevenda(id);
             }
         }
 
         throw new UnauthorizedException("Usuário não autorizado a acessar esta loja.");
+    }
+
+    private Optional<Revenda> getRevenda(Long id) {
+        Revenda revenda = revendaRepository.findById(id)
+                .orElseThrow(() -> new NoneResultException("Loja não encontrada"));
+        return Optional.of(revenda);
     }
 
     public Revenda save(Revenda revenda) {
