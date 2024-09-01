@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    container_name: mobiauto_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mobiauto_teste_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    networks:
+      - mobiauto-network
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./db/mobiauto.sql:/docker-entrypoint-initdb.d/mobiauto.sql
+    command: --default-authentication-plugin=mysql_native_password
+
+  app:
+    image: alexandreluchetti/mobiauto-server:latest
+    container_name: mobiauto_app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/mobiauto_teste_db?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQL8Dialect
+      SERVER_PORT: 8081
+      JWT_SECRET: secrettokenkey
+      JWT_EXPIRATION: 604800000
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    networks:
+      - mobiauto-network
+
+networks:
+  mobiauto-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
