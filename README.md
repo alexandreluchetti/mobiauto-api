@@ -66,6 +66,28 @@ Se você preferir rodar o projeto sem Docker, você precisará garantir que toda
 - **Build do Projeto:** `mvn clean install`
 - **Executar a Aplicação:**: `java -jar target/mobiauto-server-1.0.0.jar`
 
+
+## Testes
+
+### Visão Geral
+Este projeto inclui uma série de testes automatizados para garantir a integridade e funcionalidade contínua do código. Os testes foram escritos utilizando o framework JUnit e integrados com o Spring TestContext Framework.
+
+### Ferramentas Utilizadas
+- **JUnit**: Framework de testes para Java.
+- **Spring TestContext Framework**: Integração de testes com o Spring.
+- **MockMvc**: Utilizado para testes de controladores Spring MVC.
+
+### Executando os Testes
+Para executar os testes, você pode utilizar o Maven ou seu IDE preferido. Aqui estão os comandos para executar os testes via Maven:
+
+```sh
+mvn test
+```
+
+### Resultados dos Testes
+Após a execução dos testes, você pode ver os relatórios de testes gerados na pasta `target/surefire-reports`.
+
+
 ### Dependências
 
 Certifique-se de que todas as dependências estejam instaladas corretamente antes de executar a aplicação. Elas incluem, mas não se limitam a:
