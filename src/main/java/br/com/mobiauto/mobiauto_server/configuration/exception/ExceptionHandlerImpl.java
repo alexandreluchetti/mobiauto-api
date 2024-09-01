@@ -15,6 +15,18 @@ import java.util.Map;
 @RestControllerAdvice
 public class ExceptionHandlerImpl {
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ExceptionDto> handleIllegalArgumentException(IllegalArgumentException ex) {
+        ExceptionDto exceptionEntity = new ExceptionDto(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionEntity);
+    }
+
+    @ExceptionHandler(SecurityException.class)
+    public ResponseEntity<ExceptionDto> handleSecurityException(SecurityException ex) {
+        ExceptionDto exceptionEntity = new ExceptionDto(HttpStatus.FORBIDDEN.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exceptionEntity);
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ExceptionDto> handleEntityNotFoundException(EntityNotFoundException ex) {
         ExceptionDto exceptionEntity = new ExceptionDto(HttpStatus.NOT_FOUND.value(), ex.getMessage());

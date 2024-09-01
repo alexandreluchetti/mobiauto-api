@@ -1,7 +1,7 @@
 package br.com.mobiauto.mobiauto_server.entrypoint;
 
 import br.com.mobiauto.mobiauto_server.core.entity.Oportunidade;
-import br.com.mobiauto.mobiauto_server.core.useCase.OportunidadeService;
+import br.com.mobiauto.mobiauto_server.core.useCase.oportunidade.OportunidadeService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,11 +38,14 @@ public class OportunidadeController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Oportunidade> updateOportunidade(@PathVariable Long id, @RequestBody Oportunidade oportunidade) {
-        if (!oportunidadeService.findById(id).isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        oportunidade.setId(id);
-        return new ResponseEntity<>(oportunidadeService.save(oportunidade), HttpStatus.OK);
+        Oportunidade updatedOportunidade = oportunidadeService.update(id, oportunidade);
+        return new ResponseEntity<>(updatedOportunidade, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/transferir/{novoAssistenteId}")
+    public ResponseEntity<Void> transferirOportunidade(@PathVariable Long id, @PathVariable Long novoAssistenteId) {
+        oportunidadeService.transferirOportunidade(id, novoAssistenteId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

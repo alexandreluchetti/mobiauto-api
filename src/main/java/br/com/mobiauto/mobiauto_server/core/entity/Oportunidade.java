@@ -46,4 +46,13 @@ public class Oportunidade {
 
     @ManyToOne
     private Revenda revenda;
+
+    public void update(Oportunidade oportunidade) {
+        this.id = oportunidade.getId();
+        this.dataAtribuicao = oportunidade.getDataAtribuicao();
+        this.cliente = oportunidade.getCliente();
+        this.usuario = oportunidade.getUsuario();
+        this.veiculo = oportunidade.getVeiculo();
+        this.revenda = oportunidade.getRevenda();
+    }
 }

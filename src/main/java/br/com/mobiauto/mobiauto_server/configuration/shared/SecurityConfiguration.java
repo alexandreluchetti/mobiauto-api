@@ -40,9 +40,10 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.GET, "/revendas/**").authenticated()
                 .requestMatchers("/revendas/**").hasRole("ADMINISTRADOR")
 
+                .requestMatchers("/oportunidades/**").authenticated()
+
                 .requestMatchers("/clientes/**").authenticated()
                 .requestMatchers("/veiculos/**").authenticated()
-                .requestMatchers("/oportunidades/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)

@@ -6,7 +6,6 @@ import br.com.mobiauto.mobiauto_server.core.entity.Revenda;
 import br.com.mobiauto.mobiauto_server.core.entity.Usuario;
 import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.RevendaRepository;
 import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.UsuarioRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,8 +26,7 @@ public class RevendaService {
     }
 
     public List<Revenda> findAll() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<Usuario> usuarioAutenticadoOpt = usuarioRepository.findByEmail(userDetails.getUsername());
+        Optional<Usuario> usuarioAutenticadoOpt = getUsuarioAutenticado();
 
         if (usuarioAutenticadoOpt.isPresent()) {
             Usuario usuarioAutenticado = usuarioAutenticadoOpt.get();
@@ -44,8 +42,7 @@ public class RevendaService {
     }
 
     public Optional<Revenda> findById(Long id) throws UnauthorizedException {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<Usuario> usuarioAutenticadoOpt = usuarioRepository.findByEmail(userDetails.getUsername());
+        Optional<Usuario> usuarioAutenticadoOpt = getUsuarioAutenticado();
 
         if (usuarioAutenticadoOpt.isPresent()) {
             Usuario usuarioAutenticado = usuarioAutenticadoOpt.get();
@@ -58,6 +55,11 @@ public class RevendaService {
         }
 
         throw new UnauthorizedException("Usuário não autorizado a acessar esta loja.");
+    }
+
+    private Optional<Usuario> getUsuarioAutenticado() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return usuarioRepository.findByEmail(userDetails.getUsername());
     }
 
     private Optional<Revenda> getRevenda(Long id) {

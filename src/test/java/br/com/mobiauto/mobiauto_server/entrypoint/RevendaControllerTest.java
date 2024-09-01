@@ -28,11 +28,14 @@ public class RevendaControllerTest {
     private static final String ASSISTENTE_EMAIL = "teste_assistente@mobiauto.com";
     private static final String ASSISTENTE_ROLE = "GERENTE";
 
-    @Autowired
-    private MockMvc mockMvc;
+    private final MockMvc mockMvc;
+    private final RevendaRepository revendaRepository;
 
     @Autowired
-    private RevendaRepository revendaRepository;
+    public RevendaControllerTest(MockMvc mockMvc, RevendaRepository revendaRepository) {
+        this.mockMvc = mockMvc;
+        this.revendaRepository = revendaRepository;
+    }
 
 //TODO Alterar CNPJ para evitar o registro duplicado
 
