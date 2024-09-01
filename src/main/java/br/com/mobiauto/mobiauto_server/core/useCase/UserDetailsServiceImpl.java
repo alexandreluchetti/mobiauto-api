@@ -31,15 +31,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 new SimpleGrantedAuthority("ROLE_" + usuario.getCargo().name())));
     }
 
-//    @Autowired
-//    private UserRepository userRepository;
-//
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        UserValidationEntity user = userRepository.getUserByEmail(username);
-//        if (user == null) {
-//            throw new UsernameNotFoundException("Usuário não encontrado");
-//        }
-//        return new CustomUserDetails(user);
-//    }
 }
