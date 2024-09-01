@@ -1,7 +1,6 @@
-package br.com.mobiauto.mobiauto_server.security;
+package br.com.mobiauto.mobiauto_server.entrypoint;
 
 import br.com.mobiauto.mobiauto_server.core.entity.Cargo;
-import br.com.mobiauto.mobiauto_server.core.entity.Revenda;
 import br.com.mobiauto.mobiauto_server.core.entity.Usuario;
 import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.RevendaRepository;
 import br.com.mobiauto.mobiauto_server.dataprovider.repositorios.UsuarioRepository;
@@ -35,7 +34,8 @@ public class UsuarioControllerTest {
     @Autowired
     private RevendaRepository revendaRepository;
 
-    //TODO //Alterar CNPJ para evitar o registro duplicado
+//TODO Alterar CNPJ para evitar o registro duplicado
+
 //    @Test
 //    @WithMockUser(username = ADMIN_EMAIL, roles = ADMIN_ROLE)
 //    public void testAdminCanPostToUsuarios() throws Exception {
@@ -67,8 +67,8 @@ public class UsuarioControllerTest {
     public void testAdminCanGetUsuarios() throws Exception {
         mockMvc.perform(get("/usuarios/7"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nome", is("Usuario Teste")))
-                .andExpect(jsonPath("$.email", is("usuario@teste.com")));
+                .andExpect(jsonPath("$.nome", is("Usuario Atualizado")))
+                .andExpect(jsonPath("$.email", is("atualizado@teste.com")));
     }
 
     @Test
@@ -76,8 +76,8 @@ public class UsuarioControllerTest {
     public void testGerenteCanGetUsuarios() throws Exception {
         mockMvc.perform(get("/usuarios/7"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nome", is("Usuario Teste")))
-                .andExpect(jsonPath("$.email", is("usuario@teste.com")));
+                .andExpect(jsonPath("$.nome", is("Usuario Atualizado")))
+                .andExpect(jsonPath("$.email", is("atualizado@teste.com")));
     }
 
     @Test
@@ -151,15 +151,7 @@ public class UsuarioControllerTest {
     @Test
     @WithMockUser(roles = "ASSISTENTE")
     public void testAssistenteCanNotDeleteUsuario() throws Exception {
-        Usuario usuario = new Usuario();
-        usuario.setNome("Usuario Teste");
-        usuario.setEmail("usuario@teste.com");
-        usuario.setSenha("123456");
-        usuario.setCargo(Cargo.GERENTE);
-        usuario.setRevenda(null);
-        usuarioRepository.save(usuario);
-
-        mockMvc.perform(delete("/usuarios/" + usuario.getId()))
+        mockMvc.perform(delete("/usuarios/7"))
                 .andExpect(status().isForbidden());
     }
 }

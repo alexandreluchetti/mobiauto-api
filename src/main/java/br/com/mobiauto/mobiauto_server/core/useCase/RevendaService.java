@@ -27,6 +27,19 @@ public class RevendaService {
     }
 
     public List<Revenda> findAll() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Usuario> usuarioAutenticadoOpt = usuarioRepository.findByEmail(userDetails.getUsername());
+
+        if (usuarioAutenticadoOpt.isPresent()) {
+            Usuario usuarioAutenticado = usuarioAutenticadoOpt.get();
+
+            if (usuarioAutenticado.getCargo().isAdministrador()) {
+                return revendaRepository.findAll();
+            } else {
+                Revenda revenda = findById(usuarioAutenticado.getRevenda().getId()).get();
+                return List.of(revenda);
+            }
+        }
         return revendaRepository.findAll();
     }
 
