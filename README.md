@@ -73,7 +73,58 @@ Se você preferir rodar o projeto sem Docker, você precisará garantir que toda
 ## Testes
 
 ### Visão Geral
-Este projeto inclui uma série de testes automatizados para garantir a integridade e funcionalidade contínua do código. Os testes foram escritos utilizando o framework JUnit e integrados com o Spring TestContext Framework.
+Este projeto inclui uma série de testes de integração focados na camada de controle da aplicação, verificando a interação entre o controller, o serviço e o repositório, bem como a resposta correta aos diferentes cenários de uso da API REST.
+
+Os testes validam as seguintes regras de negócio:
+
+- Apenas administradores podem cadastrar novos usuários, salvos proprietários e
+  gerentes que podem cadastrar usuários em sua loja.
+- A edição e manutenção de perfis só pode ser realizada por administradores ou
+  Proprietários da loja.
+
+```java
+public class UsuarioControllerTest {
+    void testAdminPodeCriarUsuarios();
+    void testGerenteNaoPodeCriarUsuariosDeOutraRevenda();
+    void testAssistenteNaoPodeCriarUsuarios();
+    void testAdminPodeAtualizarUsuario();
+    void testProprietarioNaoPodeAtualizarUsuariosDeOutraRevenda();
+    void testAssistenteNaoPodeAtaulizarUsuario();
+}
+```
+
+- Administradores têm permissão para executar todas as ações em todas as Revendas.
+- Usuários só podem acessar lojas que estão vinculados com seu devido cargo.
+```java
+public class RevendaControllerTest {
+    void testAdminPodeCriarRevenda();
+    void testAdminPodeAtualizarRevenda();
+    void testAdminPodeBuscarRevendaPeloId();
+    void testAdminPodeBuscarTodasRevendas();
+    void testProprietarioPodeBuscarSuaRevendaPeloId();
+    void testProprietarioNaoPodeBuscarOutraRevendaPeloId();
+    void testAssistenteNaoPodeAtualizarRevenda();
+}
+```
+
+- O sistema deve ter a inteligência de distribuir as oportunidades sem responsável para
+  os assistentes da loja em forma de fila. Onde o próximo a receber seja o que possui a
+  menor quantidade de oportunidades em andamento e maior tempo sem receber
+  uma oportunidade.
+- Proprietários e gerentes possuem permissão de transferir uma oportunidade para
+  outro assistente.
+- Apenas o usuário associado à oportunidade pode editá-la, exceto para cargos de
+  gerentes e proprietários que têm permissão para editar todas as oportunidades de
+  sua loja.
+```java
+public class OportunidadeControllerTest {
+    void testGerentePodeTransferirOportunidade();
+    void testAssistenteNaoPodeTransferirOportunidade();
+    void testAssistenteNaoPodeEditarOutraOportunidade();
+    void testAssistentePodeEditarSuaOportunidade();
+    void testGerentePodeEditarQualquerOportunidade();
+}
+```
 
 ### Ferramentas Utilizadas
 - **JUnit**: Framework de testes para Java.
@@ -91,6 +142,7 @@ mvn test
 Após a execução dos testes, você pode ver os relatórios de testes gerados na pasta `target/surefire-reports`.
 
 ## Configuração e Variáveis de Ambiente
+
 
 ### Dependências
 

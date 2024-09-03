@@ -40,8 +40,8 @@ public class UsuarioControllerTest {
 
 //    @Test
 //    @WithMockUser(username = ADMIN_EMAIL, roles = ADMIN_ROLE)
-//    public void testAdminCanPostToUsuarios() throws Exception {
-//        Revenda revenda = new Revenda();
+//    public void testAdminPodeCriarUsuarios() throws Exception {
+//        Revenda revenda = new Revenda();testGerenteCanNotPostToUsuariosFromDiferentRevenda()
 //        revenda.setCnpj("28028921000181");
 //        revenda.setNomeSocial("Revenda Teste");
 //        revenda.setAtivo(true);
@@ -57,7 +57,7 @@ public class UsuarioControllerTest {
 
     @Test
     @WithMockUser(username = GERENTE_EMAIL, roles = GERENTE_ROLE)
-    public void testGerenteCanNotPostToUsuariosFromDiferentRevenda() throws Exception {
+    public void testGerenteNaoPodeCriarUsuariosDeOutraRevenda() throws Exception {
         mockMvc.perform(post("/usuarios")
                         .contentType("application/json")
                         .content("{\"nome\": \"Novo Usuario\", \"email\": \"novo@teste.com\", \"senha\": \"123456\", \"cargo\": \"GERENTE\", \"revenda\": {\"id\": 6}}"))
@@ -84,7 +84,7 @@ public class UsuarioControllerTest {
 
     @Test
     @WithMockUser(roles = "ASSISTENTE")
-    public void testAssistenteCanNotPostToUsuarios() throws Exception {
+    public void testAssistenteNaoPodeCriarUsuarios() throws Exception {
         mockMvc.perform(post("/usuarios")
                         .contentType("application/json")
                         .content("{\"nome\": \"Novo Usuario\", \"email\": \"novo@teste.com\", \"senha\": \"123456\", \"cargo\": \"GERENTE\", \"revenda\": {\"id\": 1}}"))
@@ -93,7 +93,7 @@ public class UsuarioControllerTest {
 
     @Test
     @WithMockUser(username = ADMIN_EMAIL, roles = ADMIN_ROLE)
-    public void testAdminCanUpdateUsuario() throws Exception {
+    public void testAdminPodeAtualizarUsuario() throws Exception {
         mockMvc.perform(put("/usuarios/7")
                         .contentType("application/json")
                         .content("{\"nome\": \"Usuario Atualizado\", \"email\": \"atualizado@teste.com\", \"senha\": \"654321\", \"cargo\": \"GERENTE\", \"revenda\": {\"id\": 6}}"))
@@ -104,7 +104,7 @@ public class UsuarioControllerTest {
 
     @Test
     @WithMockUser(roles = "PROPRIETARIO")
-    public void testProprietarioCanNotUpdateUsuarioFromAnotherRevenda() throws Exception {
+    public void testProprietarioNaoPodeAtualizarUsuariosDeOutraRevenda() throws Exception {
         mockMvc.perform(put("/usuarios/7")
                         .contentType("application/json")
                         .content("{\"nome\": \"Usuario Atualizado\", \"email\": \"atualizado@teste.com\", \"senha\": \"654321\", \"cargo\": \"GERENTE\", \"revenda\": {\"id\": 6}}"))
@@ -113,7 +113,7 @@ public class UsuarioControllerTest {
 
     @Test
     @WithMockUser(roles = "ASSISTENTE")
-    public void testAssistenteCanNotUpdateUsuario() throws Exception {
+    public void testAssistenteNaoPodeAtaulizarUsuario() throws Exception {
         mockMvc.perform(put("/usuarios/7")
                         .contentType("application/json")
                         .content("{\"nome\": \"Usuario Atualizado\", \"email\": \"atualizado@teste.com\", \"senha\": \"654321\", \"cargo\": \"GERENTE\", \"revenda\": {\"id\": 6}}"))

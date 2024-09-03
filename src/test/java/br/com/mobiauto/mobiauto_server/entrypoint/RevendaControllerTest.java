@@ -39,7 +39,7 @@ public class RevendaControllerTest {
 
 //    @Test
 //    @WithMockUser(roles = "ADMINISTRADOR")
-//    public void testAdminCanCreateRevenda() throws Exception {
+//    public void testAdminPodeCriarRevenda() throws Exception {
 //        mockMvc.perform(post("/revendas")
 //                        .contentType(MediaType.APPLICATION_JSON)
 //                        .content("{\"cnpj\": \"79318073000186\", \"nomeSocial\": \"Nova Revenda\", \"ativo\": true}"))
@@ -48,7 +48,7 @@ public class RevendaControllerTest {
 
     @Test
     @WithMockUser(username = ADMIN_EMAIL, roles = ADMIN_ROLE)
-    public void testAdminCanUpdateRevenda() throws Exception {
+    public void testAdminPodeAtualizarRevenda() throws Exception {
         mockMvc.perform(put("/revendas/8")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"cnpj\": \"79318073000186\", \"nomeSocial\": \"Revenda Atualizada\", \"ativo\": false}"))
@@ -57,28 +57,28 @@ public class RevendaControllerTest {
 
     @Test
     @WithMockUser(username = ADMIN_EMAIL, roles = ADMIN_ROLE)
-    public void testAdminCanGetRevendaById() throws Exception {
+    public void testAdminPodeBuscarRevendaPeloId() throws Exception {
         mockMvc.perform(get("/revendas/8"))
                 .andExpect(status().isOk());
     }
 
     @Test
     @WithMockUser(username = ADMIN_EMAIL, roles = ADMIN_ROLE)
-    public void testAdminCanGetAllRevendas() throws Exception {
+    public void testAdminPodeBuscarTodasRevendas() throws Exception {
         mockMvc.perform(get("/revendas"))
                 .andExpect(status().isOk());
     }
 
     @Test
     @WithMockUser(username = PROPRIETARIO_EMAIL, roles = PROPRIETARIO_ROLE)
-    public void testProprietarioCanGetRevendaById() throws Exception {
+    public void testProprietarioPodeBuscarSuaRevendaPeloId() throws Exception {
         mockMvc.perform(get("/revendas/1"))
                 .andExpect(status().isOk());
     }
 
     @Test
     @WithMockUser(username = PROPRIETARIO_EMAIL, roles = PROPRIETARIO_ROLE)
-    public void testProprietarioCanNotGetOtherRevendaById() throws Exception {
+    public void testProprietarioNaoPodeBuscarOutraRevendaPeloId() throws Exception {
         mockMvc.perform(get("/revendas/8"))
                 .andExpect(status().isForbidden());
     }
@@ -101,7 +101,7 @@ public class RevendaControllerTest {
 
     @Test
     @WithMockUser(username = ASSISTENTE_EMAIL, roles = ASSISTENTE_ROLE)
-    public void testAssistenteCannotUpdateRevenda() throws Exception {
+    public void testAssistenteNaoPodeAtualizarRevenda() throws Exception {
         mockMvc.perform(put("/revendas/8")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"cnpj\": \"12345678901234\", \"nomeSocial\": \"Revenda Atualizada\", \"ativo\": true}"))
