@@ -42,6 +42,10 @@ O Mobiauto Server foi desenvolvido seguindo a arquitetura limpa (Clean Archtectu
 
 ## Executando
 
+- Usuário administrador padrão
+  - **Usuário**: admin@mobiauto.com
+  - **Senha**: 123456
+
 Obs: o arquivo db/mobiauto.db contém toda a estrutura e schema do banco de dados da aplicação.
 
 ### Execução com Docker
